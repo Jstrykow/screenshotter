@@ -1,7 +1,4 @@
-from email import message_from_binary_file
 import smtplib
-import time
-
 
 smpt_server = 'smtp.gmail.com'
 smtp_port = 465
