@@ -1,22 +1,26 @@
 import smtplib
+from time import sleep
 
-smpt_server = 'smtp.gmail.com'
-smtp_port = 465
-smtp_acct = 'becyp2137@gmail.com'
+smpt_server = 'smtp.poczta.onet.pl'
+smtp_port = 465 # 587
+smtp_acct = 'becyp71@op.pl'
 smtp_password = 'SlavaUkrainie69'
-tgt_accts = ['becyp2137@gmail.com', 'becyp69@op.pl']
-
+emails  =  ['becyp68@op.pl','becyp69@op.pl', 'becyp70@op.pl', "becyp71@op.pl", "becyp72@op.pl"]
+# tgt_accts
 # as a source it is require not as save as gmail befose it ned to be login on computer
 
-def plain_email(subject, contents):
-    mailobj = smtplib.SMTP('smtp.gmail.com',587)
+def plain_email(email, subject, contents):
+    print(f"Prepare mail from {email} sent to")
+    mailobj = smtplib.SMTP( 'smtp.poczta.onet.pl', 587)
     mailobj.ehlo()
     mailobj.starttls()
-    mailobj.login('becyp2137@gmail.com','SlavaUkrainie69')
+    mailobj.login(email, "SlavaUkrainie69")
     msg = f"Subject: {subject} \n\n {contents}"
-    print(msg)
-    mailobj.sendmail(smtp_acct, smtp_acct, msg)
+   
+    mailobj.sendmail(email, 'vskibicka@gmail.com', msg)
+    print(f"plain mail from {email} sent to")
     mailobj.quit()
 
-
-plain_email('Widomosc tekstowa', 'Atak o swicie')
+for email in emails:
+    plain_email(email, 'Kocham', 'Ciebie!')
+    sleep(3)
